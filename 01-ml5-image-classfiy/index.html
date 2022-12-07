@@ -1,0 +1,31 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Image classification using MobileNet and p5.js</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+</head>
+
+<body>
+  <h1>Image classification using MobileNet and p5.js</h1>
+  <div class="first">
+    <h2>This is an img label to classify</h2>
+    <img src="./images/bird.png" alt="some" width="300px">
+    <span id="result">loading...</span>
+  </div>
+  <hr>
+  <div class="second">
+    <h2>This is an img from file selecting to classify</h2>
+    <input type="file" name="imgfile" accept="image/png,image/jpg,image/webpg,image/jpeg">
+    <br>
+    <img src="./images/bird.png" width="300px" alt="">
+    <span id="result">loading...</span>
+  </div>
+  <hr>
+  <h2>This is an img from canvas of p5.js to classify</h2>
+  <script src="sketch.js"></script>
+</body>
+
+</html>
