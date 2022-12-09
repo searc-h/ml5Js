@@ -15,21 +15,33 @@ function preload(){
 function setup() {
     cvs = createCanvas(400 , 400 );
     cvs.elt.style.border = '1px solid black'
+    
+
+    // save data
+    createButton('save Data').mousePressed(()=>{
+        model.saveData()
+    })
+
+    // load data
+    createButton('load data').mousePressed(()=>{
+        model.loadData('model/2022-12-9_23-8-18.json',dataLoaded)
+    })
     // save model
     createButton("save model").mousePressed(()=>{
         model.save()
     })
     
     // load model
-    // createButton("loadmodel").mousePressed(()=>{
-    //     model.load(files.elt.files , ()=>{
-    //         console.log("model loaded")
-    //     })
-    // })
-
-    // files choose
-    files = createFileInput();
-    files.attribute('multiple' , true)
+    createButton("loadmodel").mousePressed(()=>{
+        const modelInfo = {
+            model: 'model/model.json',
+            // metadata: 'path/to/model_meta.json',
+            weights: 'model/model.weights.bin',
+        };
+        model.load(modelInfo , ()=>{
+            console.log('model loaded')
+        })
+    })
 
     let options = {
         inputs : ['x' , 'y'], // 输入参数为两个，参数名为x,y
@@ -95,7 +107,7 @@ function train(){
     model.normalizeData()
 
     let option = {
-        epochs : 200, //一组数据训练50次
+        epochs : 100, //一组数据训练50次
         batchSize : 64
     }
 
@@ -133,6 +145,22 @@ function prediction(error , results){
     
 }
 
+
+function dataLoaded(){
+    console.log(model.data) 
+    //  model.data :  The property that stores all of the training data after .train() is called
+    // 这里更新之后，我们不能在为训练之前拿到data了
+    // model.data.forEach(({xs ,ys})=>{
+    //     stroke(0);
+    //     noFill();
+    //     ellipse(xs.x , xs.y , 24);
+
+    //     fill(0);
+    //     noStroke();
+    //     textAlign(CENTER ,CENTER)
+    //     text(ys.label , mouseX , mouseY)
+    // })
+}
 function draw(){
     
 }
