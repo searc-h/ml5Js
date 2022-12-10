@@ -8,6 +8,7 @@ let targetKey = 'A'; // 按键值
 
 let keyStatus = 'collection' ; // 按键状态（处于数据采集 or 数据预测）
 let files ;  // 文件
+let loadedData = []
 function preload(){
     createP("This Canvas is only supported by 'A/a','S/s','D/d','F/f' keys to mark")
     createP("You can press your keyborad to choose what should be marked on canvas")
@@ -35,11 +36,12 @@ function setup() {
     createButton("loadmodel").mousePressed(()=>{
         const modelInfo = {
             model: 'model/model.json',
-            // metadata: 'path/to/model_meta.json',
+            metadata: 'model/model_meta.json',
             weights: 'model/model.weights.bin',
         };
         model.load(modelInfo , ()=>{
             console.log('model loaded')
+            keyStatus = 'prediction'
         })
     })
 
@@ -116,6 +118,7 @@ function train(){
             console.log(epoch)
     },  ()=>{
         console.log("train finished")
+        loadedData = model.data.training
     })
 }
 
@@ -162,5 +165,17 @@ function dataLoaded(){
     // })
 }
 function draw(){
+    console.log(loadedData)
+    if(loadedData.length) {
+        loadedData.forEach(({xs ,ys})=>{
+            stroke(0);
+            noFill();
+            ellipse(xs.x * 350 + 30 , xs.y * 350 + 30, 24);
     
+            fill(0);
+            noStroke();
+            textAlign(CENTER ,CENTER)
+            text(["A",'S','D','F'][ys.label.indexOf(1)] , xs.x * 350 +30, xs.y * 350+30)
+        })
+    }
 }
