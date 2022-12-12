@@ -1,5 +1,5 @@
 let canvas  ;
-let canvasSize = {x : 500 , y : 400}
+let canvasSize = {x : 600 , y : 500}
 let dataRaw = []
 let nn ; 
 let outputData = []
@@ -30,7 +30,8 @@ function setup() {
         inputs: 1,
         outputs: 1,
         task: 'regression',
-        learningRate : 0.05
+        learningRate : 0.1,
+        debug: true
     }
     nn = ml5.neuralNetwork(options)
 
@@ -41,8 +42,8 @@ function train(){
     
     nn.normalizeData() //数据进行归一化
     let trainOption = {
-        epochs : 200,
-        batchSize : 100
+        epochs : 80,
+        batchSize : 64
     }
 
     nn.train(trainOption , (epochs , loss)=>{
@@ -56,7 +57,7 @@ function train(){
 
 function prediction(){
     
-    for(let x = 0 ; x<canvasSize.x  ; x+=10){
+    for(let x = 0 ; x<canvasSize.x  ; x+=5){
         nn.predict([x] , (error , results)=>{
             if(error){
                 console.log(error)
@@ -87,12 +88,12 @@ function draw(){
     line( canvasSize.x/2, 0  ,canvasSize.x/2, canvasSize.y)
 
     dataRaw.forEach((item)=>{
-        circle(item.x , item.y,3)
+        circle(item.x , item.y,5)
     })
 
     stroke('white')
     outputData.forEach((item)=>{
-        circle(item.x , item.y,3)
+        circle(item.x , item.y,2)
     })
     
 }
