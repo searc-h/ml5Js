@@ -11,7 +11,7 @@ let counter = 0;
 let slider;
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(1600, 480);
   // Improves performance for small neural networks and classifySync()
   ml5.tf.setBackend("cpu");
 
@@ -29,18 +29,18 @@ function draw() {
   for (let n = 0; n < slider.value(); n += 1) {
     // new pipes every N frames
     if (counter % 75 === 0) {
-      pipes.push(new Pipe());
+      pipes.push(new Pipe()); // 新增管道未显示
     }
     counter += 1;
 
     // Run game
     for (let i = pipes.length - 1; i >= 0; i -= 1) {
-      pipes[i].update();
+      pipes[i].update();    //更新管道位置
 
       for (let j = birds.length - 1; j >= 0; j -= 1) {
-        if (pipes[i].hits(birds[j])) {
+        if (pipes[i].hits(birds[j])) {  // 是否击中
           // Save bird if it dies
-          savedBirds.push(birds.splice(j, 1)[0]);
+          savedBirds.push(birds.splice(j, 1)[0]); 
         }
       }
 
@@ -66,7 +66,7 @@ function draw() {
     // If all the birds have died go to the next generation
     if (birds.length === 0) {
       counter = 0;
-      nextGeneration();
+      nextGeneration(); // 下一轮
       pipes = [];
     }
   }
@@ -75,10 +75,10 @@ function draw() {
   background(0);
 
   for (const bird of birds) {
-    bird.show();
+    bird.show();  // 显示小球
   }
 
   for (const pipe of pipes) {
-    pipe.show();
+    pipe.show();  //显示管道
   }
 }

@@ -6,6 +6,7 @@
 class Bird {
   constructor(brain) {
     this.y = height / 2;
+    console.log(height)
     this.x = 64;
 
     this.gravity = 0.8;
@@ -82,5 +83,6 @@ class Bird {
     this.score += 1;
     this.velocity += this.gravity;
     this.y += this.velocity;
+    console.log(this.score , this.velocity , this.y)
   }
 }
