@@ -37,7 +37,7 @@ function sliderAdjusted(){
 //If the mouse is clicked and it is not in bottom of our canvas, 
 //the mouse coordinates get added to our data array and drawn to the canvas. 
 function mousePressed(){
-  if(mouseY < height-5){
+  if(mouseY < height-5 && mouseY > -0.5){
   data.push({x: mouseX, y: mouseY});
   fill(255)
   ellipse(mouseX, mouseY, 20,20)
